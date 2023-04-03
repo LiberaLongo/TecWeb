@@ -1,0 +1,221 @@
+#
+# Questo file contiene l'esempio di API discusso a lezione partendo dall'esercizio sui Ristoranti
+#
+# Sono state aggiunte diverse operazioni non richieste nelle slide ma emerse durante la discussione
+#
+
+#
+# Alcuni URL delle risorse gestite nell'applicazione
+#
+#
+# /menus/?prezzoMinimo=80&tipoMenu=pesce
+# /menus/?prezzoMinimo=90&tipoMenu=carne
+# /menus/?prezzoMinimo=200
+# /menus/?tipoMenu=carne
+# /menus/
+#
+# /menus/10/piatti/   --> array di oggetti Piatto
+# /menus/10/piatti/3/   --> Piatto
+# /menus/12/piatti/2/   --> Piatto
+
+swagger: "2.0"
+info:
+  description: "API Ristorante"
+  version: "1.0.0"
+  title: "API Ristorante"
+
+paths:
+  /menus/:
+    get:
+      operationId: elencoMenu
+      summary: elenco menu
+      description: questa operazione permette di ...
+      parameters:
+        - name: prezzoMinimo
+          in: query
+          type: integer
+        - name: tipoMenu
+          in: query
+          type: string
+          enum:
+            - carne
+            - pesce
+      responses:
+        '200':
+          description: elenco corretto
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Menu'
+        '400':
+          description: errore richiesta
+    post:
+      operationId: aggiungiMenu
+      description: aggiunta di un menu
+      parameters:
+        - name: nuovoMenu
+          in: body
+          schema:
+            $ref: '#/definitions/Menu'
+      responses:
+        '200':
+          description: elenco corretto
+          schema:
+            $ref: '#/definitions/Menu'
+        '400':
+          description: errore richiesta
+  
+  /menus/{idMenu}:
+    post:
+      operationId: aggiornaPrezzo
+      description: aggiorna prezzo di un menu
+      parameters:
+        - name: idMenu
+          in: path
+          type: integer
+          required: true
+        - name: nuovoPrezzo
+          in: query
+          type: integer
+      responses:
+        '200':
+          description: prezzo aggiornato
+        '400':
+          description: prezzo non aggiornato
+          
+    get:
+      operationId: menuSingolo
+      description: informazioni di un menu
+      parameters:
+        - name: idMenu
+          in: path
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: menu
+          schema:
+            $ref: '#/definitions/Menu'
+        '400':
+          description: errore richiesta
+    delete:
+      operationId: cancellaMenu
+      description: cancellazione di un menu
+      parameters:
+        - name: idMenu
+          in: path
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: cancellazione menu
+        '400':
+          description: errore richiesta
+  
+  
+  # /menus/10/categoria/  --> pesce
+  # /menus/11/categoria/  --> carne
+  # /menus/8/categoria/  --> carne  
+  
+  /menus/{idMenu}/categoria/:
+    get:
+      operationId: categoria
+      description: categoria menu
+      parameters:
+        - name: idMenu
+          in: path
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: piatti in menu
+          schema:
+            type: string
+            enum:
+              - pesce
+              - carne
+        '400':
+          description: errore richiesta  
+  
+  
+  # /menus/20/piatti/
+  
+  /menus/{idMenu}/piatti/:
+    get:
+      operationId: elencoPiattiInMenu
+      description: piatti in un menu
+      parameters:
+        - name: idMenu
+          in: path
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: piatti in menu
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Piatto'
+        '400':
+          description: errore richiesta  
+    post:
+      operationId: aggiungiPiattiAlMenu
+      description: aggiunta di un insieme di piatti al menu
+      parameters:
+        - name: idMenu
+          in: path
+          type: integer
+          required: true
+        - name: piattiAggiunti
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Piatto'
+      responses:
+        '200':
+          description: piatti aggiunto al menu
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Piatto'
+        '400':
+          description: errore richiesta
+    
+
+definitions:
+  Menu:
+    type: object
+    required:
+      - id
+      - descrizione
+      - tipo
+      - prezzo
+    properties:
+      id:
+        type: integer
+      descrizione:
+        type: string
+      tipo:
+        type: string
+        enum:
+          - carne
+          - pesce
+      prezzo:
+        type: integer
+        minimum : 50
+  Piatto:
+    type: object
+    required:
+      - id
+      - descrizione
+      - prezzo
+    properties:
+      id:
+        type: integer
+      descrizione:
+        type: string
+        example: "un buonissimo piatto di pesce"
+      prezzo:
+        type: integer
+        minimum : 50
