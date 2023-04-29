@@ -1,11 +1,9 @@
-//this is a card only and city isn't selectable...
-//that mean i keep this but that is no more used probably!
-
 import React, {useState, useEffect} from 'react';
 
-function Weather() {
-	var selectedCity = "Milan" //i cannot change this then look at WeatherCard component!
+function WeatherCard() {
+	var selectedCity = "Bologna"
 	const apiKey = "259881c5cff7deffe72b428f74ef44a0";
+	var url = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&lang=it&units=metric&appid=${apiKey}`;
 	const [weatherData, setWeatherData] = useState({});
 
 	//operatori ternari
@@ -20,7 +18,6 @@ function Weather() {
 	var weatherIconPng = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
 
 	useEffect(() => {
-		var url = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&lang=it&units=metric&appid=${apiKey}`;
 		fetch(url)
 		.then(response => response.json())
 		  .then(data => setWeatherData(data));
@@ -34,7 +31,7 @@ function Weather() {
 			<div class='card-body'>
 				<img class='card-img'
 					src={weatherIconPng}
-					alt={weatherDescription}></img>
+					alt='image of weatherDescription'></img>
 				<div class='card-text'>
 					weather:
 					<ul>
@@ -53,4 +50,4 @@ function Weather() {
 	);
   }
   
-  export default Weather;
+  export default WeatherCard;
