@@ -3,8 +3,8 @@
 
 import React, {useState, useEffect} from 'react';
 
-function Weather() {
-	var selectedCity = "Milan" //i cannot change this then look at WeatherCard component!
+function Weather(props) {
+	var selectedCity = props.selectedCity; //i cannot change this then look at WeatherCard component!
 	const apiKey = "259881c5cff7deffe72b428f74ef44a0";
 	const [weatherData, setWeatherData] = useState({});
 

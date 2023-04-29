@@ -1,53 +1,31 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import Weather from './Weather';
 
-function WeatherCard() {
-	var selectedCity = "Bologna"
-	const apiKey = "259881c5cff7deffe72b428f74ef44a0";
-	var url = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&lang=it&units=metric&appid=${apiKey}`;
-	const [weatherData, setWeatherData] = useState({});
+function SelectCity() {
 
-	//operatori ternari
-	var weatherMain = weatherData.weather ? weatherData.weather[0].main : '';
-	var weatherIcon = weatherData.weather ? weatherData.weather[0].icon : '';
-	var weatherDescription = weatherData.weather ? weatherData.weather[0].description : '';
-	var temperature = weatherData.main ? weatherData.main.temp : '';
-	var temperatureMax = weatherData.main ? weatherData.main.temp_max : '';
-	var temperatureMin = weatherData.main ? weatherData.main.temp_min : '';
+	const array = ["Milano", "Roma", "Bologna", "Palermo", "Napoli", "Torino", "Firenze"];	
+	const [selectedCity, setSelectedCity] = useState(array[0]);
 
-	//png
-	var weatherIconPng = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
-
-	useEffect(() => {
-		fetch(url)
-		.then(response => response.json())
-		  .then(data => setWeatherData(data));
-	  }, []);
+	function getNameElements() {
+		const elements = [];
+	
+		array.forEach((city) => {
+		elements.push(<option>{city}</option>);
+		});
+	
+		return elements;
+	}
   
+	function handleInputChange(event) {
+		setSelectedCity(event.target.value);
+	}
+	
 	return (
-		<div class='card'>
-			<div class='card-header'>
-				{selectedCity}
-			</div>
-			<div class='card-body'>
-				<img class='card-img'
-					src={weatherIconPng}
-					alt='image of weatherDescription'></img>
-				<div class='card-text'>
-					weather:
-					<ul>
-						<li>main: {weatherMain}</li>
-						<li>description: {weatherDescription}</li>
-					</ul>
-					temperatura: 
-					<ul>
-						<li>ora: {temperature} &deg;C</li>
-						<li>massima: {temperatureMax} &deg;C</li>
-						<li>minima: {temperatureMin} &deg;C</li>
-					</ul>
-				</div>
-			</div>
+		<div>
+			<h2>Città selezionata {selectedCity}!</h2>
+			<select value={props.selectedCity} onChange={props.onInputChange}>{getNameElements()}</select>
+			<Weather city={selectedCity} onInputChange={handleInputChange}></Weather>
 		</div>
 	);
-  }
-  
-  export default WeatherCard;
+}
+export default SelectCity;

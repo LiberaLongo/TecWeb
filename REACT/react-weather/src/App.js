@@ -1,9 +1,9 @@
-import Weather from './Weather';
+import SelectCity from './SelectCity';
 
 function App() {
   return (
     <div>
-      <Weather selectedCity="Bologna"></Weather>
+      <SelectCity></SelectCity>
     </div>
   );
 }
