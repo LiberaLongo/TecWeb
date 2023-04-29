@@ -11,7 +11,7 @@ const sequenzaPromesse = document.getElementById("all-cities");
 //to prepare the form options as the cities in the index.js (done before seeing the .zip)
 let formHTML = `<div class="form-group">
   <label for="city">Select City</label>
-	<select class="form-control" id="city">`;
+  <select class="form-control" id="city">`;
 jQuery.each( cities, function( index, city ) {
   formHTML += `<option>${city}</option>`;
   //console.log(city);
@@ -34,21 +34,22 @@ function clearWeatherCards() {
 //funzioni ausiliarie aggiunte da LLibera
 function getCardHTML(data) {
   return `<div class='card'>
-    <div class='card-header'>
-      ${data.name}</div>
-    <div class='card-body'>
-      <img class='card-img'
-        src='http://openweathermap.org/img/w/${data.weather[0].icon}.png'
-        alt='image of ${data.weather[0].description}'></img>
-      <div class='card-text'>
-        weather:
-        <ul>
-          <li>main: ${data.weather[0].main}</li>
-          <li>description: ${data.weather[0].description}</li>
-        <ul>
+      <div class='card-header'>
+        ${data.name}
       </div>
-    </div>
-  </div>`
+      <div class='card-body'>
+        <img class='card-img'
+          src='http://openweathermap.org/img/w/${data.weather[0].icon}.png'
+          alt='image of ${data.weather[0].description}'></img>
+        <div class='card-text'>
+          weather:
+          <ul>
+            <li>main: ${data.weather[0].main}</li>
+            <li>description: ${data.weather[0].description}</li>
+          </ul>
+        </div>
+      </div>
+    </div>`
 }
 
 async function getData(url) {
