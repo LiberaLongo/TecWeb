@@ -1,9 +1,9 @@
-import SelectCity from './SelectCity';
+import CityWeather from './CityWeather';
 
 function App() {
   return (
     <div>
-      <SelectCity></SelectCity>
+      <CityWeather></CityWeather>
     </div>
   );
 }
