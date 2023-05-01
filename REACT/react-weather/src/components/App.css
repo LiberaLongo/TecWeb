@@ -1,0 +1,13 @@
+
+/*https://www.digitalocean.com/community/tutorials/how-to-customize-react-components-with-props*/
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.wrapper h1 {
+    text-align: center;
+    width: 100%;
+}

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import './Weather.css';
 
 function WeatherCard(props) {
-    const { city } = props;
-    const apiKey = "259881c5cff7deffe72b428f74ef44a0";
+	const { city } = props;
+	const apiKey = "259881c5cff7deffe72b428f74ef44a0";
 	const [weatherData, setWeatherData] = useState({});
 
 	//operatori ternari
@@ -24,26 +25,28 @@ function WeatherCard(props) {
 	  }, [city]);
   
 	return (
-		<div class='card'>
-			<div class='card-header'>
-				{city}
-			</div>
-			<div class='card-body'>
-				<img class='card-img'
-					src={weatherIconPng}
-					alt={weatherDescription}></img>
-				<div class='card-text'>
-					weather:
-					<ul>
-						<li>main: {weatherMain}</li>
-						<li>description: {weatherDescription}</li>
-					</ul>
-					temperatura: 
-					<ul>
-						<li>ora: {temperature} &deg;C</li>
-						<li>massima: {temperatureMax} &deg;C</li>
-						<li>minima: {temperatureMin} &deg;C</li>
-					</ul>
+		<div className="weather-wrapper">
+			<div class='card'>
+				<div class='card-header'>
+					{city}
+				</div>
+				<div class='card-body'>
+					<img class='card-img'
+						src={weatherIconPng}
+						alt={weatherDescription}></img>
+					<div class='card-text'>
+						weather:
+						<ul>
+							<li>main: {weatherMain}</li>
+							<li>description: {weatherDescription}</li>
+						</ul>
+						temperatura: 
+						<ul>
+							<li>ora: {temperature} &deg;C</li>
+							<li>massima: {temperatureMax} &deg;C</li>
+							<li>minima: {temperatureMin} &deg;C</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
