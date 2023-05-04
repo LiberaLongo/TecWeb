@@ -12,15 +12,20 @@ function CitySelection() {
 		setCity(selectedCity);
 	}
 
+	function handleSubmit(event) {
+		event.preventDefault();
+		<WeatherCard city={city}></WeatherCard>
+	}
+
 	return (
 		<div className="wrapper">
 			<h2>Hai selezionato {city}!</h2>
-			<select onChange={handleChange}>
+			<select id="city-select" class="form-select" onChange={handleChange}>
 				{cities.map(city => (
 					<option>{city}</option>
 				))}
 			</select>
-			<WeatherCard city={city}></WeatherCard>
+			<button type='submit' id="display-button" class="btn btn-primary" onclick={handleSubmit}>Display</button>
 		</div>
 	);
 }

@@ -4,8 +4,19 @@ import CitySelection from "./CitySelection";
 
 function App() {
   return (
-    <div>
-      <CitySelection></CitySelection>
+    <div class="container-fluid animated-gradient py-5">
+		<h1 class="title text-center mb-5">IWWA</h1>
+		<h2 class="title text-center mb-5">Italian Worst Weather App</h2>
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<h3 class="title">Display one city</h3>
+				<form id="city-form">
+          			<div class="form-group mb-3">
+					</div>
+					<CitySelection></CitySelection>
+				</form>
+			</div>
+		</div>
     </div>
   );
 }
