@@ -4,17 +4,21 @@ import cities from './components/data';
 import WeatherCard from './WeatherCard';
 
 function CitySelection() {
-	const [city, setCity] = useState(cities[0]);
+	var selectedCity = cities[0];
+	var all = false;
+	const [city, setCity] = useState("");
 	
 	function handleChange(event) {
-		var selectedCity = event.target.value;
-		//console.log(selectedCity);
-		setCity(selectedCity);
+		selectedCity = event.target.value;
 	}
 
-	function handleSubmit(event) {
+	function submitCity(event) {
 		event.preventDefault();
-		<WeatherCard city={city}></WeatherCard>
+		setCity(selectedCity)
+	}
+
+	function giveMeAll(event) {
+		all = true;
 	}
 
 	return (
@@ -25,7 +29,17 @@ function CitySelection() {
 					<option>{city}</option>
 				))}
 			</select>
-			<button type='submit' id="display-button" class="btn btn-primary" onclick={handleSubmit}>Display</button>
+			<button type="submit" id="display-city" class="btn btn-primary"
+				onClick={submitCity}>Display</button>
+			<button id="display-all" class="btn btn-secondary"
+				onClick={giveMeAll}>All</button>
+			{all === true ?
+				cities.map(city_index => {
+					<WeatherCard city={ city_index }></WeatherCard>
+				})
+				:
+				<WeatherCard city={ city }></WeatherCard>
+			}
 		</div>
 	);
 }

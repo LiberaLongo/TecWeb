@@ -18,13 +18,17 @@ function WeatherCard(props) {
 	var weatherIconPng = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
 
 	useEffect(() => {
-		var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=it&units=metric&appid=${apiKey}`;
-		fetch(url)
-		.then(response => response.json())
-		  .then(data => setWeatherData(data));
+		if(city != "") {
+			var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=it&units=metric&appid=${apiKey}`;
+			fetch(url)
+			.then(response => response.json())
+			.then(data => setWeatherData(data));
+		}
 	  }, [city]);
   
 	return (
+		<>
+		{city === "" ? "" :
 		<div className="weather-wrapper">
 			<div class='card'>
 				<div class='card-header'>
@@ -50,6 +54,8 @@ function WeatherCard(props) {
 				</div>
 			</div>
 		</div>
+		}
+		</>
 	);
 }
 export default WeatherCard;
