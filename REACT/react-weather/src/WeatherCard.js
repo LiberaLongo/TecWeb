@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import './Weather.css';
 
 function WeatherCard(props) {
 	const { city } = props;
@@ -15,10 +14,10 @@ function WeatherCard(props) {
 	var temperatureMin = weatherData.main ? weatherData.main.temp_min : '';
 
 	//png
-	var weatherIconPng = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+	var weatherIconPng = weatherIcon ? "http://openweathermap.org/img/w/" + weatherIcon + ".png" : '';
 
 	useEffect(() => {
-		if(city != "") {
+		if(city !== "") {
 			var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=it&units=metric&appid=${apiKey}`;
 			fetch(url)
 			.then(response => response.json())
@@ -28,17 +27,18 @@ function WeatherCard(props) {
   
 	return (
 		<>
-		{city === "" ? "" :
+		{city === "" ? 
+		<div>nothing here</div> :
 		<div className="weather-wrapper">
-			<div class='card'>
-				<div class='card-header'>
+			<div className='card'>
+				<div className='card-header'>
 					{city}
 				</div>
-				<div class='card-body'>
-					<img class='card-img'
+				<div className='card-body'>
+					<img className='card-img' style={{height:'100px', width:'100px'}}
 						src={weatherIconPng}
 						alt={weatherDescription}></img>
-					<div class='card-text'>
+					<div className='card-text'>
 						weather:
 						<ul>
 							<li>main: {weatherMain}</li>
